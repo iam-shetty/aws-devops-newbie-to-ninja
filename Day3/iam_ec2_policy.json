@@ -1,0 +1,30 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Stmt1742990512934",
+            "Action": [
+                "ec2:DescribeInstanceStatus",
+                "ec2:DescribeInstanceTypes",
+                "ec2:DescribeInstances"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            
+                    "Effect": "Allow", // Allows the action
+                    "Action": [
+                        "ec2:StartInstances", // Allows starting EC2 instances
+                        "ec2:StopInstances" // Allows stopping EC2 instances
+                    ],
+                    "Resource": "arn:aws:ec2:region:account-id:instance/*", // Restricts actions to EC2 instances in the account
+                    "Condition": {
+                        "StringEquals": {
+                            "ec2:ResourceTag/Environment": "Dev" // Ensures only instances with the tag Environment=Dev are affected
+                        }
+                    }
+                }
+            ]
+        }
+    
